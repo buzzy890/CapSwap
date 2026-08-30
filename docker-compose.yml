@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: capswap
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: capswap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    # log_min_duration_statement=2000: Slow-Query-Log für NFA "DB antwortet innerhalb 2s".
+    # Anfragen, die länger als 2000ms dauern, landen mit "duration:"-Zeile in den Logs
+    # (docker logs capswap) und können während eines Lasttests ausgewertet werden.
+    command: ["postgres", "-c", "log_min_duration_statement=2000"]
+    ports:
+      - "5452:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  pgadmin_data:

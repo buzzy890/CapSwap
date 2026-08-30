@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: capswap-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5452/capswap
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update # Changed from 'create' to 'update' so data isn't wiped on restart
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+    show-sql: false
+
+server:
+  port: 8080
+
+logging:
+  level:
+    de.capswap: INFO

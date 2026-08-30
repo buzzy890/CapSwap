@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: capswap-backend-test
+  datasource:
+    url: jdbc:h2:mem:capswaptest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    show-sql: true
+
+capswap:
+  socket:
+    chat:
+      port: 0
+    notification:
+      port: 0
